@@ -62,6 +62,11 @@ const createEmployee = () => {
             name: 'id',
             message: 'What is the employee ID'
         },
+        {
+            type: 'input',
+            name: 'email',
+            message: 'what is the employees email?'
+        },
 //end of common shared traits of an employee, the next two prompts are based on if they are intern or engineer
         {
             type: 'input',
@@ -84,8 +89,30 @@ const createEmployee = () => {
         }
     ]).then(employeeInfo => {
         //reconstruct an object to equal the employeeInfo object
-        let {role, name, id, school, github, employeeConfirm} = employeeInfo;
+        let {role, name, id, email, school, github, employeeConfirm} = employeeInfo;
+        //declare an empty variable to be reused when each employee is created (acts as a placeholder)
+        let employee;
+
+        //if the employee is an intern, push the data to the team array with only that info
+        if(role === 'Intern'){
+            employee = new Intern(name,id,email,school);
+        } else {
+            employee = new Engineer(name,id,email,github);
+        }
+        //push the new employee information to the object
+        teamArr.push(employee);
+
+        //if the user decided to add more employees, run the function again, ensuring you pass through your current team, so that it can be built upon. if they chose NO, then return the current team array
+        if(employeeConfirm) {
+            return createEmployee(teamArr);
+        } else {
+            console.log(teamArr);
+            return teamArr;
+        }
     })
-}
+};
+
+//run the functions to create your page
+createEmployee();
 
 

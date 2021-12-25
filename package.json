@@ -21,5 +21,8 @@
   "homepage": "https://github.com/elbandingo/team_profile_generator#readme",
   "devDependencies": {
     "jest": "^27.4.5"
+  },
+  "dependencies": {
+    "inquirer": "^8.2.0"
   }
 }
