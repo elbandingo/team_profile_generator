@@ -12,7 +12,7 @@ const teamArr = [];
 
 //function for creating a manager for the team, and pushing it to the team array when done
 const createMgr = () => {
-    inquirer.prompt ([{
+    return inquirer.prompt ([{
         type: 'input',
         name: 'name',
         message: 'Who is the manager of this team?'
@@ -29,7 +29,7 @@ const createMgr = () => {
     },
     {
         type: 'input',
-        name: 'office',
+        name: 'officeNumber',
         message: 'What is the office number?'
     }
     //then move the data to an object, and push it to the team array.
@@ -37,7 +37,8 @@ const createMgr = () => {
     const {name,id,email,officeNumber} = managerData;
     const manager = new Manager (name,id,email,officeNumber);
     teamArr.push(manager);
-})
+    console.log(teamArr);
+});
 
 };
 
@@ -45,7 +46,7 @@ const createMgr = () => {
 const createEmployee = () => {
     console.log("Begin adding members to your team.");
     console.log("==================================");
-    inquirer.prompt([
+    return inquirer.prompt([
         {
             type: 'list',
             name: 'role',
@@ -112,7 +113,35 @@ const createEmployee = () => {
     })
 };
 
-//run the functions to create your page
-createEmployee();
+
+//create a function to write the team array data to a file, where it will be sent to ./dist/index.html
+const createIndexPage = teamData => {
+    fs.writeFile('./dist/index.html', teamData, error => {
+        if(error){
+            console.log(error);
+            return;
+        } else {
+            console.log("You have successfully created your team profile page! you can find the index.html file inside the dist folder");
+        }
+    })
+};
+
+
+
+
+//run the functions to create your page. first create the manager, then build the team. after that is done build the HTML, and write it to the filesystem
+createMgr()
+.then(createEmployee)
+.then(teamArr => {
+    return createHTML(teamArr);
+})
+.then(generatedHTML => {
+    return createIndexPage(generatedHTML);
+})
+.catch(error => {
+    console.log(error);
+});
+
+
 
 
