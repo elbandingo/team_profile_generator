@@ -3,7 +3,7 @@ const createMgr = function (manager) {
     return `
     <div class="col-10 mt-4">
         <div class="card h-100">
-            <div class="card-header">
+            <div class="card-header  bg-black text-danger">
                 <h2>${manager.name}</h2>
                 <h4>Manager</h4>
             </div>
@@ -22,7 +22,7 @@ const createEng = function (engineer) {
     return `
     <div class="col-4 mt-4">
         <div class="card h-100">
-            <div class="card-header">
+            <div class="card-header bg-black text-danger">
                 <h2>${engineer.name}</h2>
                 <h4>Engineer</h4>
             </div>
@@ -41,7 +41,7 @@ const createIntern = function (intern) {
     return `
     <div class="col-4 mt-4">
         <div class="card h-100">
-            <div class="card-header">
+            <div class="card-header bg-black text-danger">
                 <h2>${intern.name}</h2>
                 <h4>Intern</h4>
             </div>
@@ -110,7 +110,7 @@ const teamPage = function (employeeCards) {
   </head>
   <body>
       <header>
-          <nav class="navbar">
+          <nav class="navbar bg-black text-danger">
               <span class="navbar-brand mb-0 h1 w-100 text-center">Team Profile</span>
           </nav>
       </header>
